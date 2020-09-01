@@ -1,3 +1,8 @@
+a.reset {
+  color: inherit;
+  text-decoration: none;
+}
+
 .card--custom {
   position: relative;
   padding: 20px;
@@ -90,5 +95,14 @@
   100% {
     opacity: 0;
   }
+}
+
+.social-links .link {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.social-links .link i {
+  color: #fff;
 }
 
