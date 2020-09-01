@@ -8,13 +8,6 @@
                         <li class="nav-item">
                             <a href="{{ route('auth.signout') }}" class="nav-link">Выйти</a>
                         </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('auth.signup') }}" class="nav-link @if (request()->is('signup')) active @endif">Регистрация</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('auth.signin') }}" class="nav-link @if (request()->is('signin')) active @endif">Войти</a>
-                        </li>
                     @endif
                 </ul>
             </div>
