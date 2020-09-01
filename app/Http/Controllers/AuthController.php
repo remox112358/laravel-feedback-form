@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\SignupRequest;
+use App\Http\Requests\SigninRequest;
 
 use App\Models\User;
 
@@ -52,9 +53,23 @@ class AuthController extends Controller
         return view('auth.signin');
     }
 
+    /**
+     * Signin into account.
+     *
+     * @param SigninRequest $request
+     * @return void
+     */
     public function postSignin(SigninRequest $request)
     {
-        dd($request);
+        if (! Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
+            return redirect()
+                    ->back()
+                    ->with('danger', 'Неправильный логин или пароль.');
+        }
+
+        return redirect()
+                ->route('home')
+                ->with('success', 'Вы успешно авторизовались.');
     }
 
     /**
