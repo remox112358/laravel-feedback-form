@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
-use Illuminate\Http\SignupRequest;
+use App\Http\Requests\SignupRequest;
+
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -17,9 +21,25 @@ class AuthController extends Controller
         return view('auth.signup');
     }
 
+    /**
+     * Create new user. Authorize automatically.
+     *
+     * @param SignupRequest $request
+     * @return void
+     */
     public function postSignup(SignupRequest $request)
     {
-        dd($request);
+        $user = User::create([
+            'email'    => $request->input('email'),
+            'name'     => $request->input('name'),
+            'password' => bcrypt($request->input('password'))
+        ]);
+
+        Auth::loginUsingId($user->id);
+
+        return redirect()
+                ->route('home')
+                ->with('success', 'Вы успешно зарегистрировались');
     }
 
     /**

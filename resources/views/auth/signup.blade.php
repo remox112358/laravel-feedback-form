@@ -11,19 +11,6 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="email">Email<span class="text-danger">*</span></label>
-                    <input type="email" 
-                           name="email" 
-                           id="email"
-                           class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                           value="{{ old('email') ?: '' }}">
-
-                    @if ($errors->has('email'))
-                        <div class="invalid-feedback">{{ $errors->first('email') }}</div>
-                    @endif
-                </div>
-
-                <div class="form-group">
                     <label for="name">Имя фамилия<span class="text-danger">*</span></label>
                     <input type="text"
                            name="name" 
@@ -37,6 +24,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="email">Email<span class="text-danger">*</span></label>
+                    <input type="email" 
+                           name="email" 
+                           id="email"
+                           class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                           value="{{ old('email') ?: '' }}">
+
+                    @if ($errors->has('email'))
+                        <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                    @endif
+                </div>
+
+                <div class="form-group">
                     <label for="password">Пароль<span class="text-danger">*</span></label>
                     <input type="password" 
                            name="password" 
@@ -45,6 +45,18 @@
 
                     @if ($errors->has('password'))
                         <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirm">Повторите пароль<span class="text-danger">*</span></label>
+                    <input type="password" 
+                           name="password_confirm" 
+                           id="password_confirm"
+                           class="form-control {{ $errors->has('password_confirm') ? 'is-invalid' : '' }}">
+
+                    @if ($errors->has('password_confirm'))
+                        <div class="invalid-feedback">{{ $errors->first('password_confirm') }}</div>
                     @endif
                 </div>
 

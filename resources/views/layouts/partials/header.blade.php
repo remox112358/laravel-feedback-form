@@ -1,5 +1,5 @@
 <header class="header mb-4">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
             <div class="collapse navbar-collapse">
