@@ -28,5 +28,7 @@
     <div class="container mb-4">
         @yield('content')
     </div>
+
+    @include('layouts.partials.alert')
 </body>
 </html>

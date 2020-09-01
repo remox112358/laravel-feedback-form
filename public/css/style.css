@@ -106,3 +106,19 @@ a.reset {
   color: #fff;
 }
 
+#alert-box {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 25%;
+  margin: 0 0 10px 10px;
+  font-size: 14px;
+}
+
+#alert-box > .alert {
+  margin: 10px 0 0 0;
+}
+
