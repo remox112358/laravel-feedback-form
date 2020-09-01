@@ -13,12 +13,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
-    <script src="{{ asset('js/script.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/0cbe7f2905.js" crossorigin="anonymous" defer></script>
 </head>
 <body>
     @include('layouts.partials.header')
@@ -26,7 +25,5 @@
     <div class="container mb-4">
         @yield('content')
     </div>
-
-    @include('layouts.partials.footer')
 </body>
 </html>
