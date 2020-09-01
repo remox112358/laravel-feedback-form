@@ -47,6 +47,11 @@
                         <div class="invalid-feedback">{{ $errors->first('password') }}</div>
                     @endif
                 </div>
+
+                <div class="form-group">
+                    {!! NoCaptcha::display() !!}
+                    {!! NoCaptcha::renderJs() !!}
+                </div>
                 
                 <button type="submit" class="btn btn-dark w-100 mb-2">Зарегистрироваться <i class="fas fa-user-tie ml-2"></i></button>
 
