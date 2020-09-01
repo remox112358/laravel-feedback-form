@@ -1,0 +1,79 @@
+#preloader {
+    overflow: hidden;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999999;
+    
+    color: #fff;
+    background: $color--dark;
+}
+  
+#preloader .jumper {
+    display: block;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    margin: auto;
+
+    width: 50px;
+    height: 50px;
+}
+
+#preloader .jumper > div {
+    position: absolute;
+
+    background-color: #fff;
+
+    border-radius: 100%;
+
+    opacity: 0;
+
+    width: 50px;
+    height: 50px;
+
+    animation: jumper 1s 0s linear infinite;
+    animation-fill-mode: both;
+}
+
+#preloader .jumper > div:nth-child(2) {
+    animation-delay: 0.33333s;
+}
+
+#preloader .jumper > div:nth-child(3) {
+    animation-delay: 0.66666s;
+}
+
+@-webkit-keyframes jumper {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    5% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes jumper {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    5% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
