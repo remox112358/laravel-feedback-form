@@ -22,7 +22,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/signout', 'AuthController@getSignout')->name('auth.signout');
 
     # Home page
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'FeedbackController@create')->name('home');
+
+    # Feedback
+    Route::post('/feedback/create', 'FeedbackController@store')->name('feedback.store');
 
 });
 

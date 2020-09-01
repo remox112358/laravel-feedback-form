@@ -6,8 +6,9 @@
 <div class="row">
     <div class="col-sm-9 col-md-6 mx-auto">
         <div class="card card--custom card--dark">
-            <h3>Отправка заявки</h3>
-            <form method="POST" action="" class="mt-4" novalidate>
+            <h3>Форма обратной связи</h3>
+            <form method="POST" action="{{ route('feedback.store') }}" class="mt-4" enctype="multipart/form-data" novalidate>
+                @csrf
 
                 <div class="form-group">
                     <label for="subject">Тема<span class="text-danger">*</span></label>
@@ -24,13 +25,24 @@
 
                 <div class="form-group">
                     <label for="message">Сообщение<span class="text-danger">*</span></label>
-                    <textarea rows="5"
-                              name="message" 
+                    <textarea name="message"
                               id="message"
                               class="form-control {{ $errors->has('message') ? 'is-invalid' : '' }}">{{ old('message') ?: '' }}</textarea>
 
                     @if ($errors->has('message'))
                         <div class="invalid-feedback">{{ $errors->first('message') }}</div>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="file">Файл</label>
+                    <input name="file"
+                           type="file"
+                           class="form-control-file {{ $errors->has('file') ? 'is-invalid' : '' }}"
+                           id="file">
+
+                    @if ($errors->has('file'))
+                        <div class="invalid-feedback">{{ $errors->first('file') }}</div>
                     @endif
                 </div>
 
