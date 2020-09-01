@@ -57,8 +57,16 @@ class AuthController extends Controller
         dd($request);
     }
 
-    public function getSingout()
+    /**
+     * Logout from account.
+     *
+     * @return void
+     */
+    public function getSignout()
     {
+        Auth::logout();
 
+        return redirect()
+                ->route('home');
     }
 }

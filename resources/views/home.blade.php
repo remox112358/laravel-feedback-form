@@ -3,5 +3,5 @@
 @section('title', 'Главная')
 
 @section('content')
-    @dd(request()->session()->all())
+    @dump(request()->session()->all())
 @endsection
