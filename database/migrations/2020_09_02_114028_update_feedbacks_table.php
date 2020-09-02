@@ -13,7 +13,7 @@ class UpdateFeedbacksTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('feedbacks', function (Blueprint $table) {
             $table->string('file')->nullable()->change();
         });
     }
@@ -25,7 +25,7 @@ class UpdateFeedbacksTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('feedbacks', function (Blueprint $table) {
             $table->dropColumn('file');
         });
     }

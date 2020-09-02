@@ -40,6 +40,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The user feedback sending time limit.
+     *
+     * @var integer
+     */
+    protected $limitInHours = 24;
+
+    /**
      * Get the user feedbacks.
      *
      * @return void
@@ -68,13 +75,13 @@ class User extends Authenticatable
      * @param string $format
      * @return string
      */
-    public function getFeedbackSendEnableTime($format = 'h:i:s d.m.Y')
+    public function getFeedbackSendEnableTime($format = 'H:i d.m.Y')
     {
         if (! $this->getLastFeedbackTime())
             return false;
 
         $time = new Carbon($this->getLastFeedbackTime());
-        $time = $time->addHours(24)->format($format);
+        $time = $time->addHours($this->limitInHours)->format($format);
 
         return $time;
     }
@@ -88,10 +95,9 @@ class User extends Authenticatable
     {
         if(! $this->getLastFeedbackTime())
             return true;
-            
-        $default = 24;
+
         $hours = Carbon::now()->diffInHours($this->getLastFeedbackTime());
         
-        return $hours >= $default ? true : false;
+        return $hours >= $this->limitInHours ? true : false;
     }
 }

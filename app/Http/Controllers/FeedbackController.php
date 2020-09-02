@@ -40,6 +40,12 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackRequest $request)
     {
+        if (! Auth::user()->canSend()) {
+            return redirect()
+                ->route('home')
+                ->with('danger', 'Отправка сообщений возможна не больше 1 раза в сутки');
+        }
+
         $file = $request->file('file');
         $folderPath = 'feedbacks/' . Carbon::now()->format('Y-m-d');
         $path = $file ? $file->store($folderPath) : null;

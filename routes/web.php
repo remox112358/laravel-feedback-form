@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/', 'FeedbackController@create')->name('home');
 
     # Feedback
-    Route::post('/feedback/create', 'FeedbackController@store')->name('feedback.store');
+    Route::post('/feedback/send', 'FeedbackController@store')->name('feedback.store');
 
 });
 
