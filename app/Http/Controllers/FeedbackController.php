@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Feedback;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\FeedbackRequest;
-
 
 class FeedbackController extends Controller
 {
@@ -38,7 +39,16 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackRequest $request)
     {
-        dd($request->all());
+        Feedback::create([
+            'user_id' => Auth::user()->id,
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+            'file'    => 'test' 
+        ]);
+
+        return redirect()
+                ->route('home')
+                ->with('success', 'Ваше сообщение было успешно отправлено. Спасибо :)');
     }
 
     /**

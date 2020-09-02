@@ -46,7 +46,7 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn btn-dark w-100 mb-2">Отправить <i class="fas fa-paper-plane ml-2"></i></button>
+                <button type="submit" class="btn btn-dark w-100">Отправить <i class="fas fa-paper-plane ml-2"></i></button>
 
             </form>
         </div>
