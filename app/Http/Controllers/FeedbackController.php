@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\Models\Feedback;
 
@@ -39,11 +40,15 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackRequest $request)
     {
+        $file = $request->file('file');
+        $folderPath = 'feedbacks/' . Carbon::now()->format('Y-m-d');
+        $path = $file ? $file->store($folderPath) : null;
+
         Feedback::create([
             'user_id' => Auth::user()->id,
             'subject' => $request->input('subject'),
             'message' => $request->input('message'),
-            'file'    => 'test' 
+            'file'    => $path
         ]);
 
         return redirect()
