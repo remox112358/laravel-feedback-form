@@ -40,13 +40,43 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user last feedback create time.
+     * Get the user feedbacks.
      *
      * @return void
      */
+    public function getFeedbacks()
+    {
+        return $this->hasMany(Feedback::class, 'user_id');
+    }
+
+    /**
+     * Get the user last feedback create time.
+     *
+     * @return string
+     */
     public function getLastFeedbackTime()
     {
+        $feedbacks = $this->getFeedbacks();
+        $lastFeedback = $feedbacks->orderBy('created_at', 'desc')->first(); 
 
+        return $lastFeedback->created_at ?? false;
+    }
+
+    /**
+     * Get the user feedback send enable formatted time.
+     *
+     * @param string $format
+     * @return string
+     */
+    public function getFeedbackSendEnableTime($format = 'h:i:s d.m.Y')
+    {
+        if (! $this->getLastFeedbackTime())
+            return false;
+
+        $time = new Carbon($this->getLastFeedbackTime());
+        $time = $time->addHours(24)->format($format);
+
+        return $time;
     }
 
     /**
@@ -56,6 +86,12 @@ class User extends Authenticatable
      */
     public function canSend()
     {
-        var_dump(Carbon::now()->diffInHours($this->created_at));
+        if(! $this->getLastFeedbackTime())
+            return true;
+            
+        $default = 24;
+        $hours = Carbon::now()->diffInHours($this->getLastFeedbackTime());
+        
+        return $hours >= $default ? true : false;
     }
 }

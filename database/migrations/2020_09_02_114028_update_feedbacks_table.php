@@ -14,7 +14,7 @@ class UpdateFeedbacksTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('file')->nullable;
+            $table->string('file')->nullable()->change();
         });
     }
 
