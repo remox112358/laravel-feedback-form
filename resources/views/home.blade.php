@@ -50,6 +50,7 @@
 
             </form>
         </div>
+        {{ Auth::user()->canSend() }}
     </div>
 </div>
 @endsection
