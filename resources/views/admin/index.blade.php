@@ -32,7 +32,7 @@
                                 <td>{{ $feedback->subject }}</td>
                                 <td>{{ $feedback->user->name }}</td>
                                 <td>{{ $feedback->user->email }}</td>
-                                <td><a href="#">cкачать</a></td>
+                                <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
                                 <td>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-auto mx-2">
@@ -78,7 +78,7 @@
                                 <td>{{ $feedback->subject }}</td>
                                 <td>{{ $feedback->user->name }}</td>
                                 <td>{{ $feedback->user->email }}</td>
-                                <td><a href="#">cкачать</a></td>
+                                <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
                                 <td>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-auto mx-2">

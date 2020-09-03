@@ -7,7 +7,7 @@
     <div class="col-lg-9 mx-auto">
         <h3>Сообщение #{{ $feedback->id }}</h3>
         <p class="mt-4">{{ $feedback->message }}</p>
-        <a href="#" class="mt-2">скачать прикреплённый файл</a>
+        <a href="{{ Storage::url($feedback->file) }}" class="mt-2" download="message #{{ $feedback->id }}">скачать прикреплённый файл</a>
         <div class="row justify-content-center">
             @if (! $feedback->isViewed())
                 <div class="col-auto mx-2">
