@@ -135,3 +135,21 @@ table.table th {
   margin: 10px 0 0 0;
 }
 
+ul.pagination li.page-item.active .page-link {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+ul.pagination li.page-item.active .page-link:hover {
+  color: #fff;
+}
+
+ul.pagination li.page-item .page-link {
+  color: #343a40;
+}
+
+ul.pagination li.page-item .page-link:hover {
+  color: #1d2124;
+}
+

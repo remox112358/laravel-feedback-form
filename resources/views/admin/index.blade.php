@@ -22,6 +22,7 @@
                             <th scope="col">Отправитель</th>
                             <th scope="col">Email</th>
                             <th scope="col">Файл</th>
+                            <th scope="col">Дата отправки</th>
                             <th scope="col">&nbsp;</th>
                         </tr>
                     </thead>
@@ -33,6 +34,7 @@
                                 <td>{{ $feedback->user->name }}</td>
                                 <td>{{ $feedback->user->email }}</td>
                                 <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
+                                <td>{{ $feedback->created_at }}</td>
                                 <td>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-auto mx-2">
@@ -68,6 +70,7 @@
                             <th scope="col">Отправитель</th>
                             <th scope="col">Email</th>
                             <th scope="col">Файл</th>
+                            <th scope="col">Дата отправки</th>
                             <th scope="col">&nbsp;</th>
                         </tr>
                     </thead>
@@ -79,6 +82,7 @@
                                 <td>{{ $feedback->user->name }}</td>
                                 <td>{{ $feedback->user->email }}</td>
                                 <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
+                                <td>{{ $feedback->created_at }}</td>
                                 <td>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-auto mx-2">

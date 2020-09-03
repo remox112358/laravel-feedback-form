@@ -1,0 +1,24 @@
+ul.pagination {
+    li.page-item {
+        &.active {
+
+            .page-link {
+                color: #fff;
+                background-color: $color--dark;
+                border-color: $color--dark;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+
+        .page-link {
+            color: $color--dark;
+
+            &:hover {
+                color: darken($color--dark, 10%);
+            }
+        }
+    }
+}
