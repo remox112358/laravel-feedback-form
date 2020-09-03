@@ -29,6 +29,11 @@ a.reset {
 
 table.table {
     box-shadow: 0 0 10px rgba(#000, 0.3);
+
+    td,
+    th {
+        vertical-align: middle;
+    }
 }
 
 .nav-tabs > .nav-link {

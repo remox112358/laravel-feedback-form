@@ -32,6 +32,9 @@ class FeedbackController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->isAdmin())
+            return redirect()->back();
+
         return view('home');
     }
 
@@ -90,6 +93,10 @@ class FeedbackController extends Controller
      */
     public function destroy(Feedback $feedback)
     {
-        //
+        $feedback->delete();
+
+        return redirect()
+                ->back()
+                ->with('success', 'Сообщение #' . $feedback->id . ' было успешно удалено');
     }
 }

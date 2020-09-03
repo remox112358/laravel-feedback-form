@@ -67,6 +67,14 @@ class AuthController extends Controller
                     ->with('danger', 'Неправильный логин или пароль.');
         }
 
+        $user = User::where('email', $request->input('email'))->first();
+
+        if ($user->isAdmin()) {
+            return redirect()
+                    ->route('feedbacks')
+                    ->with('success', 'Вы успешно авторизовались.');
+        }
+
         return redirect()
                 ->route('home')
                 ->with('success', 'Вы успешно авторизовались.');

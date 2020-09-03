@@ -23,6 +23,11 @@ table.table {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+table.table td,
+table.table th {
+  vertical-align: middle;
+}
+
 .nav-tabs > .nav-link {
   color: inherit;
 }

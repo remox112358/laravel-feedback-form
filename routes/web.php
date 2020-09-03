@@ -27,12 +27,16 @@ Route::middleware('auth')->group(function() {
     # Feedback
     Route::post('/feedback/send', 'FeedbackController@store')->name('feedback.store');
 
-});
+    # For users with admin permissions
+    Route::middleware('admin')->group(function() {
 
-Route::middleware('admin')->group(function() {
-
-    # Home page
-    Route::get('/', 'FeedbackController@index')->name('home');
+        # Home page
+        Route::get('/feedbacks', 'FeedbackController@index')->name('feedbacks');
+    
+        # Feedback
+        Route::post('/feedback/{feedback}/remove', 'FeedbackController@destroy')->name('feedback.destroy');
+    
+    });
 
 });
 
