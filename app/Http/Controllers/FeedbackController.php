@@ -15,11 +15,11 @@ class FeedbackController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
-        //
+        return view('admin.index');
     }
 
     /**
@@ -40,6 +40,12 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackRequest $request)
     {
+        if (Auth::user()->isAdmin()) {
+            return redirect()
+                    ->route('home')
+                    ->with('warning', 'Отправлять сообщение могут только пользователи без роли');
+        }
+
         if (! Auth::user()->canSend()) {
             return redirect()
                 ->route('home')

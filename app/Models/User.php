@@ -47,6 +47,16 @@ class User extends Authenticatable
     protected $limitInHours = 24;
 
     /**
+     * Determines the user has administrator role.
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return (bool) $this->is_admin;
+    }
+
+    /**
      * Get the user feedbacks.
      *
      * @return void

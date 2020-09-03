@@ -29,4 +29,11 @@ Route::middleware('auth')->group(function() {
 
 });
 
+Route::middleware('admin')->group(function() {
+
+    # Home page
+    Route::get('/', 'FeedbackController@index')->name('home');
+
+});
+
 
