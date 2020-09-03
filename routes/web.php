@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function() {
         Route::get('/feedbacks', 'FeedbackController@index')->name('feedbacks');
     
         # Feedback
+        Route::get('/feedback/{feedback}', 'FeedbackController@show')->name('feedback.show');
         Route::post('/feedback/{feedback}/remove', 'FeedbackController@destroy')->name('feedback.destroy');
         Route::post('/feedback/{feedback}/view', 'FeedbackController@view')->name('feedback.view');
     

@@ -78,11 +78,11 @@ class FeedbackController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Feedback  $feedback
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function show(Feedback $feedback)
     {
-        //
+        return view('admin.show', compact('feedback'));
     }
 
     /**

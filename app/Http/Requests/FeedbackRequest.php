@@ -25,7 +25,7 @@ class FeedbackRequest extends FormRequest
     {
         return [
             'subject' => 'required|min:4|max:32',
-            'message' => 'required|min:8|max:1000',
+            'message' => 'required|min:8|max:2000',
             'file'    => 'nullable|file|max:20480'
         ];
     }

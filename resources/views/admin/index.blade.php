@@ -36,7 +36,7 @@
                                 <td>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-auto mx-2">
-                                            <a href="#" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
+                                            <a href="{{ route('feedback.show', $feedback) }}" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
                                         </div>
                                         <div class="col-auto mx-2">
                                             <form method="POST" action="{{ route('feedback.view', $feedback) }}">
@@ -82,7 +82,7 @@
                                 <td>
                                     <div class="row no-gutters justify-content-center">
                                         <div class="col-auto mx-2">
-                                            <a href="#" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
+                                            <a href="{{ route('feedback.show', $feedback) }}" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
                                         </div>
                                         @if (! $feedback->isViewed())
                                             <div class="col-auto mx-2">
