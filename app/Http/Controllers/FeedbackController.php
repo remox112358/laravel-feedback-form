@@ -19,7 +19,10 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $unviewedFeedbacks = Feedback::viewed(0)->orderBy('updated_at', 'desc')->get();
+        $viewedFeedbacks = Feedback::viewed(1)->orderBy('updated_at', 'desc')->get();
+
+        return view('admin.index', compact('unviewedFeedbacks', 'viewedFeedbacks'));
     }
 
     /**

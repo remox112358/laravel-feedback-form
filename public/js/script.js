@@ -4,7 +4,7 @@ $(document).ready(() => {
 
     $("#preloader").animate({
         'opacity': '0'
-    }, 1000, () => {
+    }, 500, () => {
         setTimeout(() => {
             $("#preloader").css("visibility", "hidden").fadeOut();
         }, 300);
