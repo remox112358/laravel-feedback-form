@@ -43,6 +43,16 @@ class Feedback extends Model
     }
 
     /**
+     * Determines if the feedback has file.
+     *
+     * @return boolean
+     */
+    public function hasFile()
+    {
+        return (bool) $this->file;
+    }
+
+    /**
      * Determine scope for feedback find by viewed status.
      *
      * @param $query

@@ -6,15 +6,20 @@
 <div class="row">
     <div class="col-lg-9 mx-auto">
         <h3>Сообщение #{{ $feedback->id }}</h3>
+        <span>Отправитель: <b>{{ $feedback->user->name }}</b></span>
+        <br>
+        <span>Email: <b>{{ $feedback->user->email }}</b></span>
         <p class="mt-4">{{ $feedback->message }}</p>
-        <a href="{{ Storage::url($feedback->file) }}" class="mt-2" download="message #{{ $feedback->id }}">скачать прикреплённый файл</a>
+        @if ($feedback->hasFile())
+            <a href="{{ Storage::url($feedback->file) }}" class="btn btn-outline-dark mt-2" download="message #{{ $feedback->id }}">Скачать файл <i class="fas fa-file-download ml-2"></i></a>
+        @endif
         <div class="row justify-content-center">
             @if (! $feedback->isViewed())
                 <div class="col-auto mx-2">
                     <form method="POST" action="{{ route('feedback.view', $feedback) }}">
                         @csrf
 
-                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
+                        <button type="submit" class="btn btn-outline-success">Отметить <i class="fas fa-check ml-2"></i></button>
                     </form>
                 </div>
             @endif
@@ -22,7 +27,7 @@
                 <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
                     @csrf
 
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    <button type="submit" class="btn btn-outline-danger">Удалить <i class="fas fa-trash-alt ml-2"></i></button>
                 </form>
             </div>
         </div>
