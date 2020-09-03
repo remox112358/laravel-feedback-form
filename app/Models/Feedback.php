@@ -33,6 +33,16 @@ class Feedback extends Model
     }
 
     /**
+     * Determines if the feedback is viewed.
+     *
+     * @return boolean
+     */
+    public function isViewed()
+    {
+        return (bool) $this->viewed;
+    }
+
+    /**
      * Determine scope for feedback find by viewed status.
      *
      * @param $query

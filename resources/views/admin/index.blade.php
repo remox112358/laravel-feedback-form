@@ -8,8 +8,8 @@
         <h2 class="text-center text-uppercase">Сообщения</h2>
         <nav class="mt-4">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Не просмотренные</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Просмотренные</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Не просмотренные ({{ $unviewedFeedbacks->count() }})</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Просмотренные ({{ $viewedFeedbacks->count() }})</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -39,16 +39,16 @@
                                             <a href="#" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
                                         </div>
                                         <div class="col-auto mx-2">
-                                            <form method="POST" action="#">
+                                            <form method="POST" action="{{ route('feedback.view', $feedback) }}">
                                                 @csrf
-                                                
+
                                                 <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
                                             </form>
                                         </div>
                                         <div class="col-auto mx-2">
                                             <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
                                                 @csrf
-                                                
+
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </div>
@@ -84,17 +84,19 @@
                                         <div class="col-auto mx-2">
                                             <a href="#" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
                                         </div>
-                                        <div class="col-auto mx-2">
-                                            <form method="POST" action="#">
-                                                @csrf
-                                                
-                                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
-                                            </form>
-                                        </div>
+                                        @if (! $feedback->isViewed())
+                                            <div class="col-auto mx-2">
+                                                <form method="POST" action="{{ route('feedback.view', $feedback) }}">
+                                                    @csrf
+
+                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
+                                                </form>
+                                            </div>
+                                        @endif
                                         <div class="col-auto mx-2">
                                             <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
                                                 @csrf
-                                                
+
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </div>

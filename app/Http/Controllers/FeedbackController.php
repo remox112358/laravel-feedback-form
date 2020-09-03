@@ -99,4 +99,14 @@ class FeedbackController extends Controller
                 ->back()
                 ->with('success', 'Сообщение #' . $feedback->id . ' было успешно удалено');
     }
+
+    public function view(Feedback $feedback)
+    {
+        $feedback->viewed = 1;
+        $feedback->save();
+
+        return redirect()
+                ->back()
+                ->with('success', 'Сообщение #' . $feedback->id . ' было успешно просмотрено');
+    }
 }
