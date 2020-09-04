@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Mail;
+use App\Mail\FeedbackSent;
 
 use App\Models\Feedback;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\FeedbackRequest;
@@ -62,12 +65,18 @@ class FeedbackController extends Controller
         $folderPath = 'feedbacks/' . Carbon::now()->format('Y-m-d');
         $path = $file ? $file->store($folderPath) : null;
 
-        Feedback::create([
+        $feedback = Feedback::create([
             'user_id' => Auth::user()->id,
             'subject' => $request->input('subject'),
             'message' => $request->input('message'),
             'file'    => $path
         ]);
+
+        $admins = User::where('is_admin', 1)->get();
+
+        foreach ($admins as $admin) {
+            Mail::to($admin)->send(new FeedbackSent($feedback));
+        }
 
         return redirect()
                 ->route('home')
