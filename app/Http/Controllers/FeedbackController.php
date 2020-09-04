@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Mail;
-use App\Mail\FeedbackSent;
 
+use App\Mail\FeedbackSent;
 use App\Models\Feedback;
 use App\Models\User;
 
@@ -103,6 +104,8 @@ class FeedbackController extends Controller
     public function destroy(Feedback $feedback)
     {
         $feedback->delete();
+
+        Storage::delete($feedback->file);
 
         return redirect()
                 ->route('feedbacks')
