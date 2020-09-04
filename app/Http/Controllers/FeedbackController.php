@@ -75,7 +75,7 @@ class FeedbackController extends Controller
         $admins = User::where('is_admin', 1)->get();
 
         foreach ($admins as $admin) {
-            Mail::to($admin)->send(new FeedbackSent($feedback));
+            Mail::to($admin)->send(new FeedbackSent($feedback, $admin));
         }
 
         return redirect()

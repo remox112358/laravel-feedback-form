@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 use App\Models\Feedback;
+use App\Models\User;
 
 class FeedbackSent extends Mailable
 {
@@ -21,14 +22,22 @@ class FeedbackSent extends Mailable
     public $feedback;
 
     /**
+     * The admin instance.
+     *
+     * @var User
+     */
+    public $admin;
+
+    /**
      * Create a new message instance.
      *
      * @param \App\Models\Feedback  $feedback
      * @return void
      */
-    public function __construct(Feedback $feedback)
+    public function __construct(Feedback $feedback, User $admin)
     {
         $this->feedback = $feedback;
+        $this->admin = $admin;
     }
 
     /**

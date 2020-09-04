@@ -1,7 +1,10 @@
 <header class="header mb-4">
     <nav class="navbar navbar-expand navbar-dark text-white bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ (Auth::check() && Auth::user()->isAdmin()) ? route('feedbacks') : route('home') }}">{{ config('app.name') }}</a>
+            <a class="navbar-brand" 
+               href="{{ (Auth::check() && Auth::user()->isAdmin()) ? route('feedbacks') : route('home') }}">
+               {{ config('app.name') }}
+            </a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
                     <li class="nav-item">
