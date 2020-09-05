@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'last_feedback'
     ];
 
     /**
@@ -73,10 +73,7 @@ class User extends Authenticatable
      */
     public function getLastFeedbackTime()
     {
-        $feedbacks = $this->getFeedbacks();
-        $lastFeedback = $feedbacks->orderBy('created_at', 'desc')->first(); 
-
-        return $lastFeedback->created_at ?? false;
+        return $this->last_feedback ?? false;
     }
 
     /**

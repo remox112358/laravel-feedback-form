@@ -73,6 +73,12 @@ class FeedbackController extends Controller
             'file'    => $path
         ]);
 
+        $user = Auth::user();
+
+        $user->update([
+            'last_feedback' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
         $admins = User::where('is_admin', 1)->get();
 
         foreach ($admins as $admin) {
