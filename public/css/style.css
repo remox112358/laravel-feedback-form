@@ -32,6 +32,12 @@ table.table th {
   color: inherit;
 }
 
+.feedback-block {
+  font-size: 96px;
+  text-align: center;
+  line-height: 1;
+}
+
 #preloader {
   overflow: hidden;
   position: fixed;

@@ -14,81 +14,33 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <table class="table mt-2">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Тема</th>
-                            <th scope="col">Отправитель</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Файл</th>
-                            <th scope="col">Дата отправки</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($unviewedFeedbacks as $feedback)
+                @if ($unviewedFeedbacks->count())
+                    <table class="table mt-2">
+                        <thead class="thead-dark">
                             <tr>
-                                <th scope="row">{{ $feedback->id }}</th>
-                                <td>{{ $feedback->subject }}</td>
-                                <td>{{ $feedback->user->name }}</td>
-                                <td>{{ $feedback->user->email }}</td>
-                                <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
-                                <td>{{ $feedback->created_at }}</td>
-                                <td>
-                                    <div class="row no-gutters justify-content-center">
-                                        <div class="col-auto mx-2">
-                                            <a href="{{ route('feedback.show', $feedback) }}" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
-                                        </div>
-                                        <div class="col-auto mx-2">
-                                            <form method="POST" action="{{ route('feedback.view', $feedback) }}">
-                                                @csrf
-
-                                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
-                                            </form>
-                                        </div>
-                                        <div class="col-auto mx-2">
-                                            <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
-                                                @csrf
-
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
+                                <th scope="col">#</th>
+                                <th scope="col">Тема</th>
+                                <th scope="col">Отправитель</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Файл</th>
+                                <th scope="col">Дата отправки</th>
+                                <th scope="col">&nbsp;</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <table class="table mt-2">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Тема</th>
-                            <th scope="col">Отправитель</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Файл</th>
-                            <th scope="col">Дата отправки</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($viewedFeedbacks as $feedback)
-                            <tr>
-                                <th scope="row">{{ $feedback->id }}</th>
-                                <td>{{ $feedback->subject }}</td>
-                                <td>{{ $feedback->user->name }}</td>
-                                <td>{{ $feedback->user->email }}</td>
-                                <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
-                                <td>{{ $feedback->created_at }}</td>
-                                <td>
-                                    <div class="row no-gutters justify-content-center">
-                                        <div class="col-auto mx-2">
-                                            <a href="{{ route('feedback.show', $feedback) }}" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
-                                        </div>
-                                        @if (! $feedback->isViewed())
+                        </thead>
+                        <tbody>
+                            @foreach ($unviewedFeedbacks as $feedback)
+                                <tr>
+                                    <th scope="row">{{ $feedback->id }}</th>
+                                    <td>{{ $feedback->subject }}</td>
+                                    <td>{{ $feedback->user->name }}</td>
+                                    <td>{{ $feedback->user->email }}</td>
+                                    <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
+                                    <td>{{ $feedback->created_at }}</td>
+                                    <td>
+                                        <div class="row no-gutters justify-content-center">
+                                            <div class="col-auto mx-2">
+                                                <a href="{{ route('feedback.show', $feedback) }}" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
+                                            </div>
                                             <div class="col-auto mx-2">
                                                 <form method="POST" action="{{ route('feedback.view', $feedback) }}">
                                                     @csrf
@@ -96,20 +48,76 @@
                                                     <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
                                                 </form>
                                             </div>
-                                        @endif
-                                        <div class="col-auto mx-2">
-                                            <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
-                                                @csrf
+                                            <div class="col-auto mx-2">
+                                                <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
+                                                    @csrf
 
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
+                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-center mt-4">Список непросмотренных сообщений пуст</p>
+                @endif
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                @if ($viewedFeedbacks->count())
+                    <table class="table mt-2">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Тема</th>
+                                <th scope="col">Отправитель</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Файл</th>
+                                <th scope="col">Дата отправки</th>
+                                <th scope="col">&nbsp;</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($viewedFeedbacks as $feedback)
+                                <tr>
+                                    <th scope="row">{{ $feedback->id }}</th>
+                                    <td>{{ $feedback->subject }}</td>
+                                    <td>{{ $feedback->user->name }}</td>
+                                    <td>{{ $feedback->user->email }}</td>
+                                    <td><a href="{{ Storage::url($feedback->file) }}" download="message #{{ $feedback->id }}">cкачать</a></td>
+                                    <td>{{ $feedback->created_at }}</td>
+                                    <td>
+                                        <div class="row no-gutters justify-content-center">
+                                            <div class="col-auto mx-2">
+                                                <a href="{{ route('feedback.show', $feedback) }}" role="button" class="btn btn-dark"><i class="far fa-eye"></i></a>
+                                            </div>
+                                            @if (! $feedback->isViewed())
+                                                <div class="col-auto mx-2">
+                                                    <form method="POST" action="{{ route('feedback.view', $feedback) }}">
+                                                        @csrf
+
+                                                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                            <div class="col-auto mx-2">
+                                                <form method="POST" action="{{ route('feedback.destroy', $feedback) }}">
+                                                    @csrf
+
+                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-center mt-4">Список просмотренных сообщений пуст</p>
+                @endif
             </div>
         </div>
     </div>

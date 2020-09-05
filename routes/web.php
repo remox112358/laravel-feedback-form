@@ -18,11 +18,11 @@ Route::middleware('guest')->group(function() {
 # For authorized users only
 Route::middleware('auth')->group(function() {
     
-    # Signout
-    Route::get('/signout', 'AuthController@getSignout')->name('auth.signout');
-
     # Home page
     Route::get('/', 'FeedbackController@create')->name('home');
+    
+    # Signout
+    Route::get('/signout', 'AuthController@getSignout')->name('auth.signout');
 
     # Feedback
     Route::post('/feedback/send', 'FeedbackController@store')->name('feedback.store');

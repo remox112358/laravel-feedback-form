@@ -6,8 +6,8 @@
 <div class="row">
     <div class="col-sm-9 col-md-6 mx-auto">
         <div class="card card--custom card--dark">
-            <h3>Форма обратной связи</h3>
             @if (Auth::user()->canSend())
+                <h3>Форма обратной связи</h3>
                 <form method="POST" action="{{ route('feedback.store') }}" class="mt-4" enctype="multipart/form-data" novalidate>
                     @csrf
 
@@ -51,7 +51,10 @@
 
                 </form>
             @else
-                <p class="m-0 mt-2">Вы уже отправляли сообщение.<br/>В следующий раз это будет возможно в <b>{{ Auth::user()->getFeedbackSendEnableTime() }}.</b></p>
+                <div class="feedback-block">
+                    <i class="far fa-clock"></i>
+                </div>
+                <p class="text-center mb-0 mt-4">Вы уже отправляли сообщение.<br/>В следующий раз это будет возможно в <b>{{ Auth::user()->getFeedbackSendEnableTime() }}.</b></p>
             @endif
         </div>
     </div>
