@@ -82,6 +82,8 @@ php artisan serve
 npm run watch
 ```
 
+*Пароли пользователей можно узнать в database/seeds/UserSeeder.php*
+
 ### Конец
 Данное руководство по установке в дальнейшем может дополниться
 
