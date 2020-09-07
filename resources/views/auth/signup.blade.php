@@ -67,7 +67,7 @@
                 
                 <button type="submit" class="btn btn-dark w-100 mb-2">Зарегистрироваться <i class="fas fa-user-tie ml-2"></i></button>
 
-                <span>Есть аккаунт ? <a href="{{ route('auth.signin') }}">Войти.</a></span>
+                <span class="form-text text-muted">Есть аккаунт ? <a href="{{ route('auth.signin') }}">Войти.</a></span>
             </form>
         </div>
     </div>

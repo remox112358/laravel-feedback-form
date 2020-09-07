@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Http\Requests\FeedbackRequest;
+
+use Illuminate\Support\Facades\{Auth, Storage};
 use Carbon\Carbon;
 use Mail;
 
 use App\Mail\FeedbackSent;
-use App\Models\Feedback;
-use App\Models\User;
-
-use Illuminate\Http\Request;
-use App\Http\Requests\FeedbackRequest;
+use App\Models\{Feedback, User};
 
 class FeedbackController extends Controller
 {
@@ -36,9 +34,6 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->isAdmin())
-            return redirect()->route('feedbacks');
-
         return view('home');
     }
 
@@ -50,21 +45,9 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackRequest $request)
     {
-        if (Auth::user()->isAdmin()) {
-            return redirect()
-                    ->route('home')
-                    ->with('warning', 'Отправлять сообщение могут только пользователи без роли');
-        }
-
-        if (! Auth::user()->canSend()) {
-            return redirect()
-                ->route('home')
-                ->with('danger', 'Отправка сообщений возможна не больше 1 раза в сутки');
-        }
-
+        $folder = 'feedbacks/' . Carbon::now()->format('Y-m-d');
         $file = $request->file('file');
-        $folderPath = 'feedbacks/' . Carbon::now()->format('Y-m-d');
-        $path = $file ? $file->store($folderPath) : null;
+        $path = $file ? $file->store($folder) : null;
 
         $feedback = Feedback::create([
             'user_id' => Auth::user()->id,
@@ -73,17 +56,9 @@ class FeedbackController extends Controller
             'file'    => $path
         ]);
 
-        $user = Auth::user();
+        Auth::user()->updateLastFeedback();
 
-        $user->update([
-            'last_feedback' => Carbon::now()->format('Y-m-d H:i:s')
-        ]);
-
-        $admins = User::where('is_admin', 1)->get();
-
-        foreach ($admins as $admin) {
-            Mail::to($admin)->send(new FeedbackSent($feedback, $admin));
-        }
+        self::sendFeedbackMessage($feedback);
 
         return redirect()
                 ->route('home')
@@ -118,13 +93,35 @@ class FeedbackController extends Controller
                 ->with('success', 'Сообщение #' . $feedback->id . ' было успешно удалено');
     }
 
+    /**
+     * Update the feedback viewed status.
+     *
+     * @param Feedback $feedback
+     * @return void
+     */
     public function view(Feedback $feedback)
     {
-        $feedback->viewed = 1;
-        $feedback->save();
+        $feedback->update([
+            'viewed' => 1
+        ]);
 
         return redirect()
                 ->back()
                 ->with('success', 'Сообщение #' . $feedback->id . ' было успешно просмотрено');
+    }
+
+    /**
+     * Send feedback messages to users with admin permission.
+     *
+     * @param Feedback $feedback
+     * @return void
+     */
+    public function sendFeedbackMessage(Feedback $feedback)
+    {
+        $admins = User::admin(1)->get();
+
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new FeedbackSent($feedback, $admin));
+        }
     }
 }

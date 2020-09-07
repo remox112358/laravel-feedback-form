@@ -6,7 +6,7 @@ use Closure;
 
 use Illuminate\Support\Facades\Auth;
 
-class CheckIsAdmin
+class CheckIsNotAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,10 @@ class CheckIsAdmin
      */
     public function handle($request, Closure $next)
     {
-
-        if (! Auth::user()->isAdmin()) {
+        if (Auth::user()->isAdmin()) {
             return redirect()
-                    ->route('home')
-                    ->with('danger', 'У вас нет прав администратора');
+                    ->route('feedbacks')
+                    ->with('danger', 'Данное действие могут делать только простые пользователи');
         }
 
         return $next($request);

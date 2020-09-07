@@ -57,9 +57,33 @@ class User extends Authenticatable
     }
 
     /**
+     * Determine scope for user find by email.
+     *
+     * @param $query
+     * @param string $email
+     * @return \Illuminate\Support\Collection
+     */
+    public function scopeEmail($query, $email)
+    {
+        return $query->whereEmail($email);
+    }
+
+    /**
+     * Determine scope for user find by admin role.
+     *
+     * @param $query
+     * @param integer $admin
+     * @return \Illuminate\Support\Collection
+     */
+    public function scopeAdmin($query, $admin)
+    {
+        return $query->where('is_admin', $admin);
+    }
+
+    /**
      * Get the user feedbacks.
      *
-     * @return void
+     * @return \Illuminate\Support\Collection
      */
     public function getFeedbacks()
     {
@@ -106,5 +130,18 @@ class User extends Authenticatable
         $hours = Carbon::now()->diffInHours($this->getLastFeedbackTime());
         
         return $hours >= $this->limitInHours ? true : false;
+    }
+
+    /**
+     * Update the user last feedback time.
+     *
+     * @param string $format
+     * @return void
+     */
+    public function updateLastFeedback($format = 'Y-m-d H:i:s')
+    {
+        $this->update([
+            'last_feedback' => Carbon::now()->format($format)
+        ]);
     }
 }

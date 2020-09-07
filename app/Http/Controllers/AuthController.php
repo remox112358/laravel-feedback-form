@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
-use App\Http\Requests\SignupRequest;
-use App\Http\Requests\SigninRequest;
+use App\Http\Requests\{SignupRequest, SigninRequest};
+
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
@@ -23,7 +22,8 @@ class AuthController extends Controller
     }
 
     /**
-     * Create new user. Authorize automatically.
+     * Create new user. 
+     * Authorize automatically.
      *
      * @param SignupRequest $request
      * @return void
@@ -64,20 +64,12 @@ class AuthController extends Controller
         if (! Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
             return redirect()
                     ->back()
-                    ->with('danger', 'Неправильный логин или пароль.');
-        }
-
-        $user = User::where('email', $request->input('email'))->first();
-
-        if ($user->isAdmin()) {
-            return redirect()
-                    ->route('feedbacks')
-                    ->with('success', 'Вы успешно авторизовались.');
+                    ->with('danger', 'Неправильный логин или пароль');
         }
 
         return redirect()
                 ->route('home')
-                ->with('success', 'Вы успешно авторизовались.');
+                ->with('success', 'Вы успешно авторизовались');
     }
 
     /**
