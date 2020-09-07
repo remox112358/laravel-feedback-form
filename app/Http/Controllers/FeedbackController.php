@@ -121,7 +121,8 @@ class FeedbackController extends Controller
         $admins = User::admin(1)->get();
 
         foreach ($admins as $admin) {
-            Mail::to($admin->email)->send(new FeedbackSent($feedback, $admin));
+            Mail::to($admin->email)
+                ->queue(new FeedbackSent($feedback, $admin));
         }
     }
 }

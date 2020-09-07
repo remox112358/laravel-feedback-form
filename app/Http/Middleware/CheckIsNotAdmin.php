@@ -17,11 +17,8 @@ class CheckIsNotAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->isAdmin()) {
-            return redirect()
-                    ->route('feedbacks')
-                    ->with('danger', 'Данное действие могут делать только простые пользователи');
-        }
+        if (Auth::user()->isAdmin())
+            return redirect()->route('feedbacks');
 
         return $next($request);
     }
